@@ -79,7 +79,7 @@ Use git diff command or difftool. (if defined)
 
 ## Rebasing in git
 
-The common approach is to rebase feature/fix branch with the changes from the master. This will pull changes from master branch and then replay your changes on the top of it. 
+The common approach is to rebase feature/fix branch with the changes from the master. This will pull changes from master branch and then replay your changes on the top of it.
 
 The approach will work perfectly if the changes are not made on the same files, otherwise the conficts might arise.
 
@@ -101,19 +101,41 @@ Then we did this
   git rebase master
 
   # we had merge conflicts with fist commit 0b5a0a7 so we skipped it
+  # note that feature commit 98c0533 was skipped (not included in end solution)
+  # I AM SKIPPING commit 98c0533 from feature branch
   git rebase --skip
 
   # we had merege conflict with second commit but resolved it and continue
   git add .
   git commit -m "resolved readme conflicts"
-  
+
   # continue with rebase
   git rebase --continue
 
 ```
 
-After rebase and resolved conflicts, the log graph looks like this.
+After rebase and resolved conflicts, the log graph looks like this. I skipped feature commit 98c0533 which is not included in the end solution. Also note that commit hashes of alle feature commits are CHANGED after rebase. For example 8f825cd "created index.html file" become 76be75c after rebasing. This happens because rebase replays original commits on the top of commits pulled from master. This is the reason WHY rebasing AFTER the commits are pushed to remote repo can cause problems.
 
 <img src="./img/git-rebase-3.png" />
 
-Then we merge everything into master and get this
+After merging everything into master, which is then Fast Forward, we get this.
+
+<img src="./img/git-rebase-4.png" />
+
+Note! You can force merge commit if you want (I would not know why).
+
+```bash
+  # on master branch merge feature branch and force merge
+  git merge feature --no-ff -am "Merged feature into master"
+```
+
+### Rebasing your local branch with changes from remote
+
+Other handy use of rebase is when you want to pull changes from remote branch and you already have commits in your branch. You can do this combining pull and rebase.
+
+```bash
+  # pull changes from remote and replay my local commits
+  # on the top if these
+  git pull --rebase origin master
+
+```
