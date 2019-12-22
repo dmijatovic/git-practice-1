@@ -70,13 +70,6 @@ When commit command is issued all files that are STAGED are committed to CURRENT
 
 ```
 
-## Comparing changes with Git
-
-Use git diff command or difftool. (if defined)
-
-### Define git difftool to be VSCode
-
-
 ## Rebasing in git
 
 The common approach is to rebase feature/fix branch with the changes from the master. This will pull changes from master branch and then replay your changes on the top of it.
@@ -137,5 +130,59 @@ Other handy use of rebase is when you want to pull changes from remote branch an
   # pull changes from remote and replay my local commits
   # on the top if these
   git pull --rebase origin master
+
+```
+
+## Setup VSCode as git tool
+
+- Check if VSCode is registred in your PATH.
+
+```bash
+  # open terminal and type
+  # if this opens Visual Studio Code then you can proceed
+  # otherwise google how to add VSCode to your path
+  code .
+
+```
+
+- Define VSCode to be your code editor for Git
+
+``` bash
+  # set code as git core editor
+  git config --global core.editor code
+
+  # check if it works
+  git config --global -e
+```
+
+- Define VSCode to be your diff tool
+
+```bash
+  # see current dif tool
+  git config --global --get diff.tool
+
+  # open .gitconfig file for editing
+  git config --global -e
+
+```
+
+Add following lines to .gitconfig
+
+```gitconfig
+
+[diff]
+  tool = vscode
+
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+
+```
+
+- Alternative difftoll app is [kdiff3](http://kdiff3.sourceforge.net/) which can also compare complete folders without beeing git repos.
+
+```bash
+  # on linux ubuntu/debian use apt
+  # otherwise download and install
+  sudo apt install kdiff3
 
 ```
