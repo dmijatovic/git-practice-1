@@ -79,27 +79,41 @@ Use git diff command or difftool. (if defined)
 
 ## Rebasing in git
 
-The common approach is to rebase feature/fix branch with the changes from the master. This will pull changes from master branch and then replay your changes on the top of it.
+The common approach is to rebase feature/fix branch with the changes from the master. This will pull changes from master branch and then replay your changes on the top of it. 
 
-Before rebasing the git tree will looks something like this. In this example feature branch is ahead of master by 4 commits and there are 2 commits in master not included in feature
+The approach will work perfectly if the changes are not made on the same files, otherwise the conficts might arise.
 
-<img src="./img/feature-master-diverged.png" />
+### Rebasing with conflicts
 
-When we want to include 2 changef from master into feature branch
-Before rebasing the git tree will looks something like this. In this example feature branch is ahead of master by 3 commits and there are 2 commits in master not included in feature
+Before rebasing the git tree will looks something like this. In this example feature branch is ahead of master by 5 commits and there are 2 commits in master (0b5a0a7,42209fc) which are not included in feature branch.
 
+<img src="./img/git-rebase-1.png" />
+
+Then we did this
 
 ```bash
 
   # swith to feature branch
   git checkout feature
 
-  # if you have uncommitted changes
-  # stash first
-  git stash
-
   # rebase feature branch with changes from master
   # you need to be in CLEAN state (not having uncommited/staged changes)
   git rebase master
 
+  # we had merge conflicts with fist commit 0b5a0a7 so we skipped it
+  git rebase --skip
+
+  # we had merege conflict with second commit but resolved it and continue
+  git add .
+  git commit -m "resolved readme conflicts"
+  
+  # continue with rebase
+  git rebase --continue
+
 ```
+
+After rebase and resolved conflicts, the log graph looks like this.
+
+<img src="./img/git-rebase-3.png" />
+
+Then we merge everything into master and get this
