@@ -28,11 +28,13 @@ Here some 'quick' basic commands are listed
 
 ```
 
-## Git log
+## Git status and logs
 
 ```bash
+  # show current status of repo
+  git status
+
   # show basic changes
-  
   git log
 
 ```
