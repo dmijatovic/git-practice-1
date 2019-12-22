@@ -36,8 +36,8 @@ Here some 'quick' basic commands are listed
   # show basic changes
   git log
 
-  # show changes in one line using grap
-  git log --oneline --graph
+  # show changes using graph for all branches one line for each commit
+  git log --oneline --graph --all
 
 ```
 
