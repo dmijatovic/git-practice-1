@@ -2,7 +2,6 @@
 
 This project is git training with some immediate advanced commands.
 
-
 ## Basics
 
 Here some 'quick' basic commands are listed
@@ -54,7 +53,8 @@ When commit command is issued all files that are STAGED are committed to CURRENT
   # commit STAGED and UNSTAGED files - BUT NOT UNTRACKED (new) files
   git commit -am "This is my message"
 
-
+  # add all untracked files (or you can add by filename)
+  git add .
 
 
 ```
