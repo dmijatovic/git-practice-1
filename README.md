@@ -178,6 +178,13 @@ Add following lines to .gitconfig
 
 ```
 
+- To turnoff difftool prompt before opening
+
+```bash
+  git config --global difftool.prompt false
+
+```
+
 - Alternative difftoll app is [kdiff3](http://kdiff3.sourceforge.net/) which can also compare complete folders without beeing git repos.
 
 ```bash
