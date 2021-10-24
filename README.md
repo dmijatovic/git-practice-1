@@ -70,6 +70,18 @@ When commit command is issued all files that are STAGED are committed to CURRENT
 
 ```
 
+## Git merge
+
+Git merge with accepting confict changes by default
+
+```bash
+# merge branch and accept all their changes when conflicts
+git merge <branch-name> --strategy-option theirs
+
+# merge branch and accept all our changes when conflicts
+git merge <branch-name> --strategy-option ours
+```
+
 ## Rebasing in git
 
 The common approach is to rebase feature/fix branch with the changes from the master. This will pull changes from master branch and then replay your changes on the top of it.
@@ -147,7 +159,7 @@ Other handy use of rebase is when you want to pull changes from remote branch an
 
 - Define VSCode to be your code editor for Git
 
-``` bash
+```bash
   # set code as git core editor
   git config --global core.editor code
 
