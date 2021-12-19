@@ -94,13 +94,24 @@ Before rebasing the git tree will looks something like this. In this example fea
 
 <img src="./img/git-rebase-1.png" />
 
-Then we did this
+#### Automatic confilict resolution
 
 ```bash
-
   # swith to feature branch
   git checkout feature
 
+  ## rabase accepting all confolicting changes from master
+  ## ensure your local master branch is up-to-date
+  git rebase -Xtheirs master
+
+  ## rabase ignoring all conflicting changes from master
+  git rebase -Xours master
+
+```
+
+#### Manual conflict resolution
+
+```bash
   # rebase feature branch with changes from master
   # you need to be in CLEAN state (not having uncommited/staged changes)
   git rebase master
@@ -144,6 +155,18 @@ Other handy use of rebase is when you want to pull changes from remote branch an
   git pull --rebase origin master
 
 ```
+
+### Rebase and squash
+
+The purpose of rebasing is to put commits of an branch at the top of the master/main branch. In some cases you might want to squash all your commits into one.
+
+This can be achieved by:
+
+- rebasing interactively your branch and then rebasing it from master.
+- another manual approach might be (only if you have not pushed these):
+  - merging you branch into master
+  - restoring master back to the last master commit before merge without --hard. This will leave all changes in unstaged state.
+  - then you can add and commit all unstaged changes again, but now as one commit and with new message.
 
 ## Setup VSCode as git tool
 
